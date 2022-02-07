@@ -2,8 +2,8 @@
  * Created by: Aidan Pohl (1539290)
  * Date Created: 1/31/2022
  * 
- * Last Edited; N/A
- * Last Edited By: N/A
+ * Last Edited: 2/7/2022
+ * Last Edited By: Aidan Pohl
  * 
  * Description: Controls apple despawning
  */
@@ -22,7 +22,11 @@ public class Apple : MonoBehaviour
     {
         if(transform.position.y < bottomY)
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject);//Destroy gameObject
+
+            ApplePicker aScript = Camera.main.GetComponent<ApplePicker>();
+            aScript.AppleDestroyed();
+
         }
     }
 }

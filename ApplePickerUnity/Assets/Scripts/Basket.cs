@@ -2,17 +2,29 @@
  * Created by: Aidan Pohl (1539290)
  * Date Created: 2/1/2022
  * 
- * Last Edited: N/A
- * Last Edited By: N/A
+ * Last Edited: 2/7/2022
+ * Last Edited By: Aidan Pohl
  * 
  * Description: Handles moving the basket and catching apples.
  */
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; //using UI Library
 
 public class Basket : MonoBehaviour
 {
+    [Header("Set Dynamically")]
+    public Text scoreGT;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        GameObject scoreGO = GameObject.Find("Score Counter");
+        scoreGT = scoreGO.GetComponent<Text>();
+        scoreGT.text = "0";
+    } //end Start()
+
 
     // Update is called once per frame
     void Update()
@@ -37,6 +49,18 @@ public class Basket : MonoBehaviour
         GameObject collidedWidth = coll.gameObject;
         if (collidedWidth.tag =="Apple"){
             Destroy (collidedWidth);
+
+            //Increase score
+            int score = int.Parse(scoreGT.text);
+            score += 100;
+            scoreGT.text = score.ToString();
+
+            //Update Highscore
+            if(score > HighScore.highScore)
+            {
+                HighScore.highScore = score;
+            }//end if(score < HighScore.score)
+
         }//end  if (collidedWidth.tag =="Apple")
     } //end void OnCollisionEnter (Collision coll)
 }
